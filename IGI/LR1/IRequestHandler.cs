@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Mediator
+{
+    public interface IRequestHandler<in TRequest> where TRequest : IRequest
+    {
+        void Handle(TRequest request);
+    }
+
+    public interface IRequestHandler<in TRequest, TResponse> where TRequest : IRequest<TResponse>
+    {
+        TResponse Handle(TRequest request);
+    }
+}
