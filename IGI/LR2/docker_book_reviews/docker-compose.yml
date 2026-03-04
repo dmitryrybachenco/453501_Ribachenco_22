@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # MySQL база данных
+  mysql:
+    image: mysql:8.0
+    container_name: bookreviews_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3307:3306"  # Используем 3307, чтобы не конфликтовать с локальным MySQL
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - bookreviews_network
+
+  # PHP + Apache
+  webserver:
+    build: ./php
+    container_name: bookreviews_webserver
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./www:/var/www/html
+      - ./apache/vhost.conf:/etc/apache2/sites-available/000-default.conf
+    depends_on:
+      - mysql
+    networks:
+      - bookreviews_network
+
+  # phpMyAdmin (опционально, для удобства работы с БД)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: bookreviews_phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: ${MYSQL_USER}
+      PMA_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql
+    networks:
+      - bookreviews_network
+
+volumes:
+  mysql_data:
+
+networks:
+  bookreviews_network:
+    driver: bridge
