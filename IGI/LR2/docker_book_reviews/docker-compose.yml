@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-  # MySQL база данных
   mysql:
     image: mysql:8.0
     container_name: bookreviews_mysql
@@ -19,7 +18,6 @@ services:
     networks:
       - bookreviews_network
 
-  # PHP + Apache
   webserver:
     build: ./php
     container_name: bookreviews_webserver
@@ -34,7 +32,6 @@ services:
     networks:
       - bookreviews_network
 
-  # phpMyAdmin (опционально, для удобства работы с БД)
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: bookreviews_phpmyadmin
