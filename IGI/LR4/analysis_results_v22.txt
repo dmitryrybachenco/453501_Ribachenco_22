@@ -1,0 +1,256 @@
+================================================================================
+LABORATORY WORK No. 4 - TASK 2 (VARIANT 22)
+Analysis Date: 2026-04-30 09:44:58
+================================================================================
+
+================================================================================
+1. ORIGINAL TEXT
+================================================================================
+Hello! This is a sample text for testing the text analyzer.
+
+Email addresses:
+John Doe <john.doe@example.com>
+Jane Smith <jane.smith@gmail.com>
+support@company.com
+admin@website.org
+
+String replacement examples:
+The expression $v_(a) should become v[a].
+We have $v_(1), $v_(b), and $v_(x) to replace.
+Complex example: 123$v_(ac)$bf$v_(1)$
+
+Words analysis:
+Apple, banana, orange, umbrella, elephant.
+These words start with vowels: ant, egg, ice, octopus.
+Words ending with vowels: banana, coffee, data, menu.
+
+Smileys in text: :-) ;-) :D ;---[[[ :) :] ;)
+
+Questions? Is this working? Are there any issues?
+
+Wow! Amazing! Congratulations!
+
+This sentence ends with a period. Another declarative sentence here.
+
+What about smileys? Here are some: :-) ;-) :D ;---[[[ :) :] ;)
+
+The quick brown fox jumps over the lazy dog. ;-)
+
+Please process this text according to the requirements.
+
+
+================================================================================
+2. EMAIL EXTRACTION
+================================================================================
+1. Name: John Doe
+   Email: john.doe@example.com
+
+2. Name: Jane Smith
+   Email: jane.smith@gmail.com
+
+3. Email: support@company.com
+
+4. Email: admin@website.org
+
+================================================================================
+3. STRING REPLACEMENT ($v_(i) -> v[i])
+================================================================================
+Original: Hello! This is a sample text for testing the text analyzer.
+
+Email addresses:
+John Doe <john.doe@example.com>
+Jane Smith <jane.smith@gmail.com>
+support@company.com
+admin@website.org
+
+String replacement examples:
+The expression $v_(a) should become v[a].
+We have $v_(1), $v_(b), and $v_(x) to replace.
+Complex example: 123$v_(ac)$bf$v_(1)$
+
+Words analysis:
+Apple, banana, orange, umbrella, elephant.
+These words start with vowels: ant, egg, ice, octopus.
+Words ending with vowels: banana, coffee, data, menu.
+
+Smileys in text: :-) ;-) :D ;---[[[ :) :] ;)
+
+Questions? Is this working? Are there any issues?
+
+Wow! Amazing! Congratulations!
+
+This sentence ends with a period. Another declarative sentence here.
+
+What about smileys? Here are some: :-) ;-) :D ;---[[[ :) :] ;)
+
+The quick brown fox jumps over the lazy dog. ;-)
+
+Please process this text according to the requirements.
+
+Replaced: Hello! This is a sample text for testing the text analyzer.
+
+Email addresses:
+John Doe <john.doe@example.com>
+Jane Smith <jane.smith@gmail.com>
+support@company.com
+admin@website.org
+
+String replacement examples:
+The expression v[a] should become v[a].
+We have v[1], v[b], and v[x] to replace.
+Complex example: 123$v_(ac)$bfv[1]$
+
+Words analysis:
+Apple, banana, orange, umbrella, elephant.
+These words start with vowels: ant, egg, ice, octopus.
+Words ending with vowels: banana, coffee, data, menu.
+
+Smileys in text: :-) ;-) :D ;---[[[ :) :] ;)
+
+Questions? Is this working? Are there any issues?
+
+Wow! Amazing! Congratulations!
+
+This sentence ends with a period. Another declarative sentence here.
+
+What about smileys? Here are some: :-) ;-) :D ;---[[[ :) :] ;)
+
+The quick brown fox jumps over the lazy dog. ;-)
+
+Please process this text according to the requirements.
+
+Patterns found: ['a', '1', 'b', 'x', '1']
+
+================================================================================
+4. WORDS STARTING OR ENDING WITH VOWELS
+================================================================================
+Total words: 134
+Words starting or ending with vowel: 72
+List: Hello, is, a, sample, the, analyzer, Email, addresses, Doe, doe, example, Jane, jane, company, admin, website, org, examples, The, expression, a, become, a, We, have, and, to, replace, example, ac, analysis, Apple, banana, orange, umbrella, elephant, These, ant, egg, ice, octopus, ending, banana, coffee, data, menu, in, Is, Are, there
+... and 22 more
+
+================================================================================
+5. CHARACTER FREQUENCY
+================================================================================
+Character | Count
+-------------------------
+   \n     | 31
+          | 106
+    !     | 4
+    $     | 8
+    (     | 6
+    )     | 15
+    ,     | 12
+    -     | 11
+    .     | 16
+    1     | 3
+    2     | 1
+    3     | 1
+    :     | 16
+    ;     | 7
+    <     | 2
+    >     | 2
+    ?     | 4
+    @     | 4
+    A     | 4
+    C     | 2
+    D     | 3
+    E     | 1
+    H     | 2
+    I     | 1
+    J     | 2
+    P     | 1
+    Q     | 1
+    S     | 3
+    T     | 5
+    W     | 5
+    [     | 7
+    ]     | 3
+    _     | 6
+    a     | 49
+    b     | 9
+    c     | 18
+    d     | 16
+    e     | 85
+    f     | 5
+    g     | 13
+    h     | 24
+    i     | 33
+    j     | 3
+    k     | 2
+    l     | 26
+    m     | 24
+    n     | 39
+    o     | 42
+    p     | 18
+    q     | 2
+    r     | 31
+    s     | 46
+    t     | 43
+    u     | 12
+    v     | 12
+    w     | 10
+    x     | 11
+    y     | 7
+    z     | 3
+
+Total unique characters: 59
+Total characters: 878
+
+================================================================================
+6. WORDS AFTER COMMA (Alphabetical Order)
+================================================================================
+and, banana, coffee, data, egg, elephant, ice, menu, octopus, orange, umbrella, v_
+
+Total unique words: 12
+
+================================================================================
+7. GENERAL TEXT STATISTICS
+================================================================================
+Total sentences: 17
+Declarative sentences (повествовательные): 9
+Interrogative sentences (вопросительные): 4
+Exclamatory sentences (побудительные): 4
+Average sentence length (word chars only): 36.71
+Average word length: 4.66
+Number of smileys: 13
+
+================================================================================
+8. SENTENCES LIST
+================================================================================
+1. [побудительное] Hello!
+2. [повествовательное] This is a sample text for testing the text analyzer.
+3. [повествовательное] Email addresses:
+John Doe <john.doe@example.com>
+Jane Smith <jane.smith@gmail.com>
+support@company.com
+admin@website.org
+
+String replacement examples:
+The expression $v_(a) should become v[a].
+4. [повествовательное] We have $v_(1), $v_(b), and $v_(x) to replace.
+5. [повествовательное] Complex example: 123$v_(ac)$bf$v_(1)$
+
+Words analysis:
+Apple, banana, orange, umbrella, elephant.
+6. [повествовательное] These words start with vowels: ant, egg, ice, octopus.
+7. [повествовательное] Words ending with vowels: banana, coffee, data, menu.
+8. [вопросительное] Smileys in text: :-) ;-) :D ;---[[[ :) :] ;)
+
+Questions?
+9. [вопросительное] Is this working?
+10. [вопросительное] Are there any issues?
+11. [побудительное] Wow!
+12. [побудительное] Amazing!
+13. [побудительное] Congratulations!
+14. [повествовательное] This sentence ends with a period.
+15. [повествовательное] Another declarative sentence here.
+16. [вопросительное] What about smileys?
+17. [повествовательное] Here are some: :-) ;-) :D ;---[[[ :) :] ;)
+
+The quick brown fox jumps over the lazy dog. ;-)
+
+Please process this text according to the requirements.
+
+================================================================================
+END OF ANALYSIS

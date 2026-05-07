@@ -1,0 +1,18 @@
+============================================================
+PARALLELOGRAM INFORMATION
+============================================================
+
+side_a: 6
+side_b: 4
+angle_deg: 60
+angle_rad: 1.0472
+area: 20.78
+perimeter: 20
+diagonal1: 8.72
+diagonal2: 5.29
+height: 3.46
+
+Color: lightblue
+Shape Name: Parallelogram
+
+============================================================

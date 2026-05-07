@@ -1,0 +1,31 @@
+Hello! This is a sample text for testing the text analyzer.
+
+Email addresses:
+John Doe <john.doe@example.com>
+Jane Smith <jane.smith@gmail.com>
+support@company.com
+admin@website.org
+
+String replacement examples:
+The expression $v_(a) should become v[a].
+We have $v_(1), $v_(b), and $v_(x) to replace.
+Complex example: 123$v_(ac)$bf$v_(1)$
+
+Words analysis:
+Apple, banana, orange, umbrella, elephant.
+These words start with vowels: ant, egg, ice, octopus.
+Words ending with vowels: banana, coffee, data, menu.
+
+Smileys in text: :-) ;-) :D ;---[[[ :) :] ;)
+
+Questions? Is this working? Are there any issues?
+
+Wow! Amazing! Congratulations!
+
+This sentence ends with a period. Another declarative sentence here.
+
+What about smileys? Here are some: :-) ;-) :D ;---[[[ :) :] ;)
+
+The quick brown fox jumps over the lazy dog. ;-)
+
+Please process this text according to the requirements.
