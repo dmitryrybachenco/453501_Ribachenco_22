@@ -11,9 +11,6 @@ class StatisticalAnalyzer:
         """
         Calculate arithmetic mean
 
-        Args:
-            data: List of numbers
-
         Returns:
             Arithmetic mean
         """
@@ -25,9 +22,6 @@ class StatisticalAnalyzer:
     def median(data: List[float]) -> float:
         """
         Calculate median
-
-        Args:
-            data: List of numbers
 
         Returns:
             Median value
@@ -45,63 +39,47 @@ class StatisticalAnalyzer:
             return sorted_data[mid]
 
     @staticmethod
-    def mode(data: List[float]) -> List[float]:
+    def mode(data: List[float]) -> float:
         """
         Calculate mode(s) - most frequent value(s)
-
-        Args:
-            data: List of numbers
 
         Returns:
             List of mode values
         """
         if not data:
-            return []
+            return 0.0
 
         counter = Counter(data)
-        max_count = max(counter.values())
-        return [value for value, count in counter.items() if count == max_count]
+        mode_value = counter.most_common(1)[0][0]
+        return mode_value
 
     @staticmethod
-    def variance(data: List[float], ddof: int = 1) -> float:
+    def variance(data: List[float]) -> float:
         """
         Calculate variance
-
-        Args:
-            data: List of numbers
-            ddof: Delta degrees of freedom (0 for population, 1 for sample)
 
         Returns:
             Variance
         """
-        if len(data) <= ddof:
-            return 0.0
 
         mean_val = StatisticalAnalyzer.mean(data)
         squared_diff = sum((x - mean_val) ** 2 for x in data)
-        return squared_diff / (len(data) - ddof)
+        return squared_diff / len(data)
 
     @staticmethod
-    def std_deviation(data: List[float], ddof: int = 1) -> float:
+    def std_deviation(data: List[float]) -> float:
         """
         Calculate standard deviation
-
-        Args:
-            data: List of numbers
-            ddof: Delta degrees of freedom
 
         Returns:
             Standard deviation
         """
-        return math.sqrt(StatisticalAnalyzer.variance(data, ddof))
+        return math.sqrt(StatisticalAnalyzer.variance(data))
 
     @staticmethod
     def get_all_statistics(data: List[float]) -> Dict[str, Any]:
         """
         Calculate all statistical parameters
-
-        Args:
-            data: List of numbers
 
         Returns:
             Dictionary with all statistics

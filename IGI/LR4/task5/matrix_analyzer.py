@@ -64,38 +64,26 @@ class MatrixAnalyzer:
 
         return min_val, min_pos
 
-    def calculate_variance_numpy(self, data: np.ndarray, ddof: int = 1) -> floating[Any]:
+    def calculate_variance_numpy(self, data: np.ndarray) -> floating[Any]:
         """
         Calculate variance using numpy's built-in function
 
-        Args:
-            data: Input array
-            ddof: Delta degrees of freedom
-
         Returns:
             Variance value
         """
-        return np.var(data, ddof=ddof)
+        return np.var(data)
 
-    def calculate_variance_formula(self, data: np.ndarray, ddof: int = 1) -> float:
+    def calculate_variance_formula(self, data: np.ndarray) -> float:
         """
         Calculate variance using the mathematical formula
 
-        Formula: variance = Σ(x - μ)² / (n - ddof)
-
-        Args:
-            data: Input array
-            ddof: Delta degrees of freedom
-
         Returns:
             Variance value
         """
-        if len(data) <= ddof:
-            return 0.0
 
         mean_val = np.mean(data)
         squared_diff_sum = np.sum((data - mean_val) ** 2)
-        return squared_diff_sum / (len(data) - ddof)
+        return squared_diff_sum / len(data)
 
     def get_matrix_info(self) -> dict:
         """

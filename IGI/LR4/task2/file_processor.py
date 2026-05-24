@@ -170,7 +170,6 @@ class FileProcessor:
 
             print(f"\nArchive created: {self.archive_name}")
 
-            # Get archive information
             with zipfile.ZipFile(self.archive_name, 'r') as archive:
                 print("\nArchive Information:")
                 for info in archive.infolist():

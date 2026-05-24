@@ -90,6 +90,9 @@ def run_task3():
     series_stats = stats.get_all_statistics(series.get_series_values())
     print(f"\nSeries values mean: {series_stats['mean']:.10f}")
     print(f"Series values median: {series_stats['median']:.10f}")
+    print(f"Series values mode: {series_stats['mode']:.10f}")
+    print(f"Series values variance: {series_stats['variance']:.10f}")
+    print(f"Series values std_deviation: {series_stats['std_deviation']:.10f}")
 
     plotter.create_plot("arcsin_series_plot.png")
 
@@ -137,17 +140,17 @@ def main():
     """Main function to run all tasks"""
     print("\n" + "=" * 70)
     print("LABORATORY WORK No. 4 - VARIANT 22")
-    print("Developer: Student")
-    print("Date: 2024")
+    print("Developer: Ribachenko Dmitriy")
+    print("Date: 15.04.2026")
     print("=" * 70)
 
     tasks = {
         '1': ("Student Questionnaire", run_task1),
-        '2': ("Text Analysis with Regex (Variant 22)", run_task2),
+        '2': ("Text Analysis with Regex", run_task2),
         '3': ("Series Expansion (arcsin x)", run_task3),
         '4': ("Geometric Shapes (Parallelogram)", run_task4),
         '5': ("NumPy Matrix Analysis", run_task5),
-        '6': ("Pandas Airbnb Analysis", run_task6)
+        '6': ("Pandas Salary Analysis", run_task6)
     }
 
     while True:

@@ -135,6 +135,9 @@ class Parallelogram(GeometricFigure):
         self._angle_deg = value
         self._angle_rad = math.radians(value)
 
+    def get_angle_rad(self) -> float:
+        return self._angle_rad
+
     def calculate_area(self) -> float:
         """Calculate parallelogram area: A = a * b * sin(angle)"""
         return self._side_a * self._side_b * math.sin(self._angle_rad)

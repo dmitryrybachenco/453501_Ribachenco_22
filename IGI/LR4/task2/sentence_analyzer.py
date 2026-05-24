@@ -58,9 +58,9 @@ class SentenceAnalyzer:
         """
         sentences = self.get_sentences()
         counts = {
-            'declarative': 0,    # повествовательные (заканчиваются на .)
-            'interrogative': 0,  # вопросительные (заканчиваются на ?)
-            'exclamatory': 0     # побудительные (заканчиваются на !)
+            'declarative': 0,
+            'interrogative': 0,
+            'exclamatory': 0
         }
 
         for sentence in sentences:

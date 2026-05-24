@@ -27,8 +27,6 @@ class ParallelogramDrawer:
         """
         vertices = self.parallelogram.get_vertices()
 
-        polygon_vertices = vertices + [vertices[0]]
-
         fig, ax = plt.subplots(figsize=(10, 8))
 
         polygon = patches.Polygon(vertices, closed=True,
@@ -56,7 +54,7 @@ class ParallelogramDrawer:
                    fontsize=10, ha='center',
                    bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
 
-        angle_rad = self.parallelogram._angle_rad
+        angle_rad = self.parallelogram.get_angle_rad()
         arc_radius = min(self.parallelogram.side_a, self.parallelogram.side_b) * 0.3
         arc_theta = np.linspace(0, angle_rad, 50)
         arc_x = arc_radius * np.cos(arc_theta)

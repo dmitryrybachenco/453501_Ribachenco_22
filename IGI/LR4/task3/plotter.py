@@ -41,7 +41,6 @@ class SeriesPlotter:
         plt.axhline(y=0, color='k', linewidth=0.5)
         plt.axvline(x=0, color='k', linewidth=0.5)
 
-        # Add annotation
         plt.text(0.05, 0.95, 'Domain: |x| < 1\nSeries: ∑(2n)!/(4^n(n!)²(2n+1)) × x^(2n+1)',
                  transform=plt.gca().transAxes, fontsize=10, verticalalignment='top',
                  bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))

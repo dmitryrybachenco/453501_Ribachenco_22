@@ -1,5 +1,5 @@
-from shapes import Parallelogram
-from drawer import ParallelogramDrawer
+from .shapes import Parallelogram
+from .drawer import ParallelogramDrawer
 
 
 def get_positive_float(prompt: str) -> float:

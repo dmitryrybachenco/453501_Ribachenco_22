@@ -22,23 +22,6 @@ class SalaryAnalyzer:
             if col not in self.data.columns:
                 raise ValueError(f"Required column '{col}' not found in dataset")
 
-    def clean_data(self) -> pd.DataFrame:
-        """
-        Clean the dataset
-
-        Returns:
-            Cleaned DataFrame
-        """
-        cleaned = self.data.copy()
-
-        cleaned = cleaned.dropna(subset=['Salary', 'Gender', 'Years of Experience'])
-
-        cleaned = cleaned[cleaned['Salary'] > 0]
-
-        cleaned = cleaned[cleaned['Years of Experience'] >= 0]
-
-        return cleaned
-
     def create_salary_series(self) -> pd.Series:
         """
         Create Series from Salary column

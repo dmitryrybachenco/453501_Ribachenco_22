@@ -15,15 +15,11 @@ class RegexPatterns:
     RUSSIAN_VOWELS = set('аеёиоуыэюяАЕЁИОУЫЭЮЯ')
     ALL_VOWELS = ENGLISH_VOWELS | RUSSIAN_VOWELS
 
-    SENTENCE_SPLIT_PATTERN = r'(?<=[.!?])\s+(?=[A-ZА-ЯЁ"\'\(])'
+    SENTENCE_SPLIT_PATTERN = r'(?<=[.!?])\s+(?=[A-ZА-ЯЁ"\'\(]|$)'
 
     SENTENCE_END_PATTERN = r'[.!?]'
 
     COMPLETE_SENTENCE_PATTERN = r'[^.!?]*[.!?]+'
-
-    DECLARATIVE_END = r'\.$'
-    INTERROGATIVE_END = r'\?$'
-    EXCLAMATORY_END = r'!$'
 
     SMILEY_PATTERN = r'[;:]-*[\(\)\[\]]+'
 
@@ -90,12 +86,12 @@ class RegexPatterns:
         if not text:
             return []
 
-        sentences = re.split(r'(?<=[.!?])\s+(?=[A-ZА-ЯЁ"\'\(]|$)', text.strip())
+        sentences = re.split(cls.SENTENCE_SPLIT_PATTERN, text.strip())
 
         sentences = [s.strip() for s in sentences if s.strip()]
 
         if not sentences:
-            sentences = re.findall(r'[^.!?]*[.!?]+', text)
+            sentences = re.findall(cls.COMPLETE_SENTENCE_PATTERN, text)
             sentences = [s.strip() for s in sentences if s.strip()]
 
         return sentences
@@ -112,9 +108,8 @@ class RegexPatterns:
         """
         sentence = sentence.strip()
         if not sentence:
-            return None
+            return ""
 
-        # Check last character
         if sentence.endswith('?'):
             return 'interrogative'
         elif sentence.endswith('!'):

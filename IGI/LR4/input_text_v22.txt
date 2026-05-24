@@ -16,7 +16,7 @@ Apple, banana, orange, umbrella, elephant.
 These words start with vowels: ant, egg, ice, octopus.
 Words ending with vowels: banana, coffee, data, menu.
 
-Smileys in text: :-) ;-) :D ;---[[[ :) :] ;)
+Smileys in text: :-) ;-) :D ;---[[[ :) :] ;) :-))]]
 
 Questions? Is this working? Are there any issues?
 
