@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Вакансии{% endblock %}
+
+{% block content %}
+    <h2>Вакансии</h2>
+    
+    {% for vacancy in vacancies %}
+        <div class="card">
+            <h3>{{ vacancy.title }}</h3>
+            <p><strong>Зарплата:</strong> {{ vacancy.salary|default:"не указана" }}</p>
+            <p><strong>Местоположение:</strong> {{ vacancy.location }}</p>
+            <p>{{ vacancy.description|truncatewords:50 }}</p>
+            <p><strong>Требования:</strong> {{ vacancy.requirements|truncatewords:30 }}</p>
+        </div>
+    {% empty %}
+        <p>Активных вакансий нет.</p>
+    {% endfor %}
+{% endblock %}

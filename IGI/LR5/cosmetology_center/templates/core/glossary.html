@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Словарь терминов{% endblock %}
+
+{% block content %}
+    <h2>Словарь терминов и понятий</h2>
+    
+    {% for item in glossary_items %}
+        <div class="card">
+            <h3>{{ item.term }}</h3>
+            <p>{{ item.definition }}</p>
+            <p><small>Добавлено: {{ item.added_at|date:"d.m.Y" }}</small></p>
+        </div>
+    {% empty %}
+        <p>Термины не добавлены.</p>
+    {% endfor %}
+{% endblock %}

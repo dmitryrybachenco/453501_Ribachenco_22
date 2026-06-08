@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Результаты поиска{% endblock %}
+
+{% block content %}
+    <h2>Результаты поиска: "{{ query }}"</h2>
+    
+    <form method="get" class="search-form">
+        <input type="hidden" name="q" value="{{ query }}">
+        <select name="type">
+            <option value="all" {% if search_type == 'all' %}selected{% endif %}>Все</option>
+            <option value="services" {% if search_type == 'services' %}selected{% endif %}>Услуги</option>
+            <option value="doctors" {% if search_type == 'doctors' %}selected{% endif %}>Врачи</option>
+            <option value="news" {% if search_type == 'news' %}selected{% endif %}>Новости</option>
+        </select>
+        <select name="sort">
+            <option value="">Без сортировки</option>
+            <option value="price_asc" {% if sort_by == 'price_asc' %}selected{% endif %}>Цена (возрастание)</option>
+            <option value="price_desc" {% if sort_by == 'price_desc' %}selected{% endif %}>Цена (убывание)</option>
+        </select>
+        <button type="submit" class="btn">Применить</button>
+    </form>
+    
+    {% if results.services %}
+        <h3>Услуги</h3>
+        {% for item in results.services %}
+            <div class="card">
+                <a href="{% url 'services:service_detail' item.id %}">{{ item.name }}</a> - {{ item.price }} руб.
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    {% if results.doctors %}
+        <h3>Врачи</h3>
+        {% for item in results.doctors %}
+            <div class="card">
+                <a href="{% url 'doctors:doctor_detail' item.id %}">{{ item.user.get_full_name }}</a>
+                <p>Опыт: {{ item.experience_years }} лет</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    {% if results.news %}
+        <h3>Новости</h3>
+        {% for item in results.news %}
+            <div class="card">
+                <a href="{% url 'core:news_detail' item.id %}">{{ item.title }}</a>
+                <p>{{ item.published_at|date:"d.m.Y" }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    {% if not results.services and not results.doctors and not results.news %}
+        <p>Ничего не найдено.</p>
+    {% endif %}
+{% endblock %}

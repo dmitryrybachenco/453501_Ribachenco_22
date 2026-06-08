@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Добавить отзыв{% endblock %}
+
+{% block content %}
+    <h2>Добавить отзыв</h2>
+    
+    <div class="card">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn">Отправить отзыв</button>
+            <a href="{% url 'core:reviews' %}" class="btn">Отмена</a>
+        </form>
+    </div>
+{% endblock %}

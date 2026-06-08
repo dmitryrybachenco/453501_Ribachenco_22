@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ news.title }}{% endblock %}
+
+{% block content %}
+    {% if user.is_superuser or user.is_staff %}
+        <div style="margin-bottom: 20px;">
+            <a href="{% url 'core:news_edit' news.id %}" class="btn" style="background-color: #ffc107; color: #333;">✏ Редактировать</a>
+            <a href="{% url 'core:news_delete' news.id %}" class="btn" style="background-color: #dc3545;">🗑 Удалить</a>
+        </div>
+    {% endif %}
+
+    <h2>{{ news.title }}</h2>
+    <p><small>Дата публикации: {{ news.published_at|date:"d.m.Y H:i" }}</small></p>
+    <p><small>UTC: {{ news_date_utc }} | Локальное время: {{ news_date_local }}</small></p>
+    
+    {% if news.image %}
+        <img src="{{ news.image.url }}" alt="{{ news.title }}" style="max-width: 100%; height: auto;">
+    {% endif %}
+    
+    <div class="card">
+        <p>{{ news.content|linebreaks }}</p>
+    </div>
+    
+    <a href="{% url 'core:news_list' %}" class="btn">← Назад к новостям</a>
+{% endblock %}

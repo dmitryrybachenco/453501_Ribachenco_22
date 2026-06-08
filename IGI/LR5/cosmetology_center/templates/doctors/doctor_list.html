@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Врачи{% endblock %}
+
+{% block content %}
+    <h2>Наши врачи</h2>
+    
+    <form method="get" class="search-form">
+        <input type="text" name="q" placeholder="Поиск по имени..." value="{{ query }}">
+        <select name="specialization">
+            <option value="">Все специализации</option>
+            {% for spec in specializations %}
+                <option value="{{ spec.id }}" {% if selected_specialization|stringformat:"s" == spec.id|stringformat:"s" %}selected{% endif %}>
+                    {{ spec.name }}
+                </option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn">Фильтр</button>
+    </form>
+    
+    <div class="grid">
+        {% for doctor in doctors %}
+            <div class="card">
+                {% if doctor.photo %}
+                    <img src="{{ doctor.photo.url }}" alt="{{ doctor.user.get_full_name }}"
+                         style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;">
+                {% else %}
+                    <div style="width: 150px; height: 150px; background: #ccc; border-radius: 50%;
+                                display: flex; align-items: center; justify-content: center;">
+                        Нет фото
+                    </div>
+                {% endif %}
+                <h3>{{ doctor.user.get_full_name }}</h3>
+                <p>Опыт: {{ doctor.experience_years }} лет</p>
+                <p>Специализации: 
+                    {% for spec in doctor.specializations.all %}
+                        {{ spec.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                <a href="{% url 'doctors:doctor_detail' doctor.id %}">Подробнее</a>
+            </div>
+        {% empty %}
+            <p>Врачи не найдены.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

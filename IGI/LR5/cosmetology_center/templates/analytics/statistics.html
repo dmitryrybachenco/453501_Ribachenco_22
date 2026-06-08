@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}Статистика{% endblock %}
+
+{% block content %}
+    <h2>Статистика центра</h2>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Всего клиентов</h3>
+            <p style="font-size: 36px;">{{ total_clients }}</p>
+        </div>
+        <div class="card">
+            <h3>Всего врачей</h3>
+            <p style="font-size: 36px;">{{ total_doctors }}</p>
+        </div>
+        <div class="card">
+            <h3>Активных услуг</h3>
+            <p style="font-size: 36px;">{{ total_services }}</p>
+        </div>
+        <div class="card">
+            <h3>Всего приемов</h3>
+            <p style="font-size: 36px;">{{ total_appointments }}</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Самая популярная услуга</h3>
+        {% if most_popular_service %}
+            <p><strong>{{ most_popular_service.name }}</strong> - {{ most_popular_service.appointment_count }} записей</p>
+        {% else %}
+            <p>Нет данных</p>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h3>Количество приемов по дням недели</h3>
+        {% if daily_chart %}
+            <img src="data:image/png;base64,{{ daily_chart }}" alt="График приемов по дням" style="width: 100%; max-width: 800px; margin: 0 auto; display: block;">
+        {% else %}
+            <p>Нет данных для отображения графика</p>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h3>Количество приемов по часам</h3>
+        {% if hourly_chart %}
+            <img src="data:image/png;base64,{{ hourly_chart }}" alt="График приемов по часам" style="width: 100%; max-width: 800px; margin: 0 auto; display: block;">
+        {% else %}
+            <p>Нет данных для отображения графика</p>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h3>Возрастное распределение клиентов</h3>
+        {% if age_chart %}
+            <img src="data:image/png;base64,{{ age_chart }}" alt="Возрастное распределение" style="width: 100%; max-width: 500px; margin: 0 auto; display: block;">
+        {% else %}
+            <ul>
+                <li>18-25 лет: {{ age_groups.18_25 }}</li>
+                <li>26-35 лет: {{ age_groups.26_35 }}</li>
+                <li>36-50 лет: {{ age_groups.36_50 }}</li>
+                <li>50+ лет: {{ age_groups.50_plus }}</li>
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h3>Топ-5 врачей по количеству приемов</h3>
+        {% if doctors_chart %}
+            <img src="data:image/png;base64,{{ doctors_chart }}" alt="Топ врачей" style="width: 100%; max-width: 600px; margin: 0 auto; display: block;">
+        {% else %}
+            <table style="width: 100%;">
+                <thead>
+                    <tr><th>Врач</th><th>Количество приемов</th></tr>
+                </thead>
+                <tbody>
+                    {% for doctor in doctor_stats %}
+                    <tr><td>{{ doctor.user.get_full_name }}</td><td>{{ doctor.appointments_count }}</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h3>Доходы по услугам (топ-5)</h3>
+        <table style="width: 100%;">
+            <thead>
+                <tr><th>Услуга</th><th>Выручка</th></tr>
+            </thead>
+            <tbody>
+                {% for service in revenue_by_service %}
+                <tr><td>{{ service.name }}</td><td>{{ service.total_revenue|default:"0" }} руб.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h3>Средняя оценка отзывов</h3>
+        <p style="font-size: 24px;">{{ avg_rating }} / 5</p>
+    </div>
+{% endblock %}

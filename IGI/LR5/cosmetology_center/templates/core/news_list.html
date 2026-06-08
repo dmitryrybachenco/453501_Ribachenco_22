@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Новости{% endblock %}
+
+{% block content %}
+    <h2>Новости центра</h2>
+
+    {% if user.is_superuser or user.is_staff %}
+        <div style="margin-bottom: 20px;">
+            <a href="{% url 'core:news_create' %}" class="btn" style="background-color: #28a745;">+ Добавить новость</a>
+        </div>
+    {% endif %}
+
+    <form method="get" class="search-form">
+        <input type="text" name="q" placeholder="Поиск новостей..." value="{{ request.GET.q }}">
+        <button type="submit" class="btn">Найти</button>
+    </form>
+
+    {% for news in page_obj %}
+        <div class="card">
+            <h3>{{ news.title }}</h3>
+            <p><small>{{ news.published_at|date:"d.m.Y" }}</small></p>
+            <p>{{ news.short_description }}</p>
+            <a href="{% url 'core:news_detail' news.id %}">Читать далее →</a>
+
+            {% if user.is_superuser or user.is_staff %}
+                <div style="margin-top: 10px;">
+                    <a href="{% url 'core:news_edit' news.id %}" class="btn" style="background-color: #ffc107; color: #333;">✏ Редактировать</a>
+                    <a href="{% url 'core:news_delete' news.id %}" class="btn" style="background-color: #dc3545;">🗑 Удалить</a>
+                </div>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>Новостей не найдено.</p>
+    {% endfor %}
+    
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; Первая</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Назад</a>
+        {% endif %}
+        <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Вперед</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
+        {% endif %}
+    </div>
+{% endblock %}

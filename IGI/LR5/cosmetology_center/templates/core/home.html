@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная - Косметологический центр{% endblock %}
+
+{% block content %}
+    <h2>Добро пожаловать в косметологический центр!</h2>
+    
+    <h3>Последняя новость</h3>
+    {% if latest_news %}
+        <div class="card">
+            <h4>{{ latest_news.title }}</h4>
+            <p>{{ latest_news.short_description }}</p>
+            <a href="{% url 'core:news_detail' latest_news.id %}">Читать далее →</a>
+        </div>
+    {% else %}
+        <p>Новостей пока нет.</p>
+    {% endif %}
+    
+    <h3>Популярные услуги</h3>
+    <div class="grid">
+        {% for service in popular_services %}
+            <div class="card">
+                <h4>{{ service.name }}</h4>
+                <p>{{ service.description|truncatewords:15 }}</p>
+                <p><strong>{{ service.price }} руб.</strong></p>
+                <a href="{% url 'services:service_detail' service.id %}">Подробнее</a>
+            </div>
+        {% empty %}
+            <p>Услуги не добавлены.</p>
+        {% endfor %}
+    </div>
+    
+    <h3>Лучшие врачи</h3>
+    <div class="grid">
+        {% for doctor in top_doctors %}
+            <div class="card">
+                <h4>{{ doctor.user.get_full_name }}</h4>
+                <p>Опыт: {{ doctor.experience_years }} лет</p>
+                <p>Приемов: {{ doctor.appointment_count }}</p>
+                <a href="{% url 'doctors:doctor_detail' doctor.id %}">Подробнее</a>
+            </div>
+        {% empty %}
+            <p>Врачи не добавлены.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

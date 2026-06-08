@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Контакты{% endblock %}
+
+{% block content %}
+    <h2>Наши сотрудники</h2>
+    
+    <div class="grid">
+        {% for contact in contacts %}
+            <div class="card">
+                {% if contact.photo %}
+                    <img src="{{ contact.photo.url }}" alt="{{ contact.full_name }}" style="width: 100px; height: 100px; border-radius: 50%;">
+                {% endif %}
+                <h3>{{ contact.full_name }}</h3>
+                <p><strong>{{ contact.position }}</strong></p>
+                <p>{{ contact.description }}</p>
+                <p>📞 {{ contact.phone }}</p>
+                <p>✉ {{ contact.email }}</p>
+            </div>
+        {% empty %}
+            <p>Контакты не добавлены.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

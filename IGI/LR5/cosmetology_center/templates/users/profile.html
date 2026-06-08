@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block content %}
+    <h2>Личный кабинет</h2>
+    
+    <div class="card">
+        <h3>Информация о пользователе</h3>
+        <p><strong>Имя:</strong> {{ user.first_name }}</p>
+        <p><strong>Фамилия:</strong> {{ user.last_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Телефон:</strong> {{ user.phone }}</p>
+        <p><strong>Дата рождения:</strong> {{ user.birth_date|date:"d.m.Y" }}</p>
+        <p><strong>Возраст:</strong> {{ user.get_age }} лет</p>
+        <p><strong>Роль:</strong> {{ user.get_role_display }}</p>
+        <a href="{% url 'users:edit_profile' %}" class="btn">Редактировать профиль</a>
+    </div>
+    
+    {% if client_profile %}
+        <div class="card">
+            <h3>Профиль клиента</h3>
+            <p><strong>Тип кожи:</strong> {{ client_profile.skin_type|default:"не указан" }}</p>
+            <p><strong>Аллергии:</strong> {{ client_profile.allergies|default:"нет" }}</p>
+        </div>
+    {% endif %}
+    
+    <div class="card">
+        <h3>Последние записи</h3>
+        {% for appointment in recent_appointments %}
+            <p>
+                {{ appointment.date|date:"d.m.Y" }} {{ appointment.time }} -
+                {{ appointment.service.name }} - {{ appointment.doctor.user.get_full_name }}
+                {% if appointment.status == 'scheduled' %}✅ Активна{% endif %}
+            </p>
+        {% empty %}
+            <p>Нет записей.</p>
+        {% endfor %}
+        <a href="{% url 'clients:appointment_list' %}" class="btn">Все записи</a>
+        <a href="{% url 'clients:create_appointment' %}" class="btn">Новая запись</a>
+    </div>
+{% endblock %}

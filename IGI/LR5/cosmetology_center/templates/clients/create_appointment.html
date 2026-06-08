@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Новая запись{% endblock %}
+
+{% block content %}
+    <h2>Запись на прием</h2>
+    
+    <div class="card">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn">Записаться</button>
+            <a href="{% url 'clients:appointment_list' %}" class="btn">Отмена</a>
+        </form>
+    </div>
+{% endblock %}

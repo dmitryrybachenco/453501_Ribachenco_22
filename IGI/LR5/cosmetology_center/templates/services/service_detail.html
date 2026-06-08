@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ service.name }}{% endblock %}
+
+{% block content %}
+    <h2>{{ service.name }}</h2>
+    
+    <div class="card">
+        <p><strong>Категория:</strong> {{ service.category.name }}</p>
+        <p><strong>Цена:</strong> {{ service.price }} руб.</p>
+        <p><strong>Длительность:</strong> {{ service.duration }} минут</p>
+        <p><strong>Описание:</strong></p>
+        <p>{{ service.description|linebreaks }}</p>
+        
+        {% if user.is_authenticated and user.role == 'client' %}
+            <a href="{% url 'clients:create_appointment' %}?service={{ service.id }}" class="btn">Записаться</a>
+        {% endif %}
+    </div>
+    
+    <h3>Врачи, оказывающие эту услугу</h3>
+    {% for doctor in doctors %}
+        <div class="card">
+            <p><strong>{{ doctor.user.get_full_name }}</strong> - опыт {{ doctor.experience_years }} лет</p>
+            <a href="{% url 'doctors:doctor_detail' doctor.id %}">Подробнее о враче</a>
+        </div>
+    {% empty %}
+        <p>Врачи не назначены.</p>
+    {% endfor %}
+{% endblock %}

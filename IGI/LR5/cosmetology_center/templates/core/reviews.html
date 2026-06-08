@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Отзывы{% endblock %}
+
+{% block content %}
+    <h2>Отзывы наших клиентов</h2>
+    
+    {% if user.is_authenticated %}
+        <div class="card">
+            <h3>Оставить отзыв</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn">Отправить</button>
+            </form>
+        </div>
+    {% else %}
+        <p><a href="{% url 'users:login' %}">Войдите</a>, чтобы оставить отзыв.</p>
+    {% endif %}
+    
+    <h3>Все отзывы</h3>
+    {% for review in reviews %}
+        <div class="card">
+            <p><strong>{{ review.user.get_full_name }}</strong> — Оценка: {{ review.rating }}/5</p>
+            <p>{{ review.text }}</p>
+            <p><small>{{ review.created_at|date:"d.m.Y" }}</small></p>
+        </div>
+    {% empty %}
+        <p>Отзывов пока нет. Будьте первым!</p>
+    {% endfor %}
+{% endblock %}

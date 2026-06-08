@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Расписание {{ doctor.user.get_full_name }}{% endblock %}
+
+{% block content %}
+    <h2>Расписание {{ doctor.user.get_full_name }}</h2>
+    
+    <div class="pagination">
+        <a href="?week_start={{ prev_week|date:'Y-m-d' }}" class="btn">← Предыдущая неделя</a>
+        <a href="?week_start={{ next_week|date:'Y-m-d' }}" class="btn">Следующая неделя →</a>
+    </div>
+    
+    {% for day in week_days %}
+        <div class="card">
+            <h3>{{ day.date|date:"l, d.m.Y" }}</h3>
+            {% if day.schedules %}
+                <ul>
+                    {% for schedule in day.schedules %}
+                        <li>
+                            {{ schedule.start_time|time:"H:i" }} - {{ schedule.end_time|time:"H:i" }}
+                            {% if schedule.is_available %}✅ Свободно{% else %}❌ Занято{% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Нет расписания на этот день</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}

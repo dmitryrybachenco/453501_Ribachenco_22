@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}О компании{% endblock %}
+
+{% block content %}
+    <h2>О компании</h2>
+    
+    <div class="card">
+        <h3>Косметологический центр "Красота"</h3>
+        <p>Современный косметологический центр, предлагающий полный спектр услуг по уходу за кожей лица и тела.</p>
+    </div>
+    
+    <h3>История компании</h3>
+    {% for item in company_history %}
+        <div class="card">
+            <strong>{{ item.year }} год:</strong> {{ item.event }}
+        </div>
+    {% endfor %}
+    
+    <h3>Наши реквизиты</h3>
+    <table>
+        <tr><th>Показатель</th><th>Значение</th></tr>
+        <td>ИНН</td><td>1234567890</td></tr>
+        <td>ОГРН</td><td>1234567890123</td></tr>
+        <td>Юридический адрес</td><td>г. Минск, ул. Примерная, 123</td></tr>
+        <td>Телефон</td><td>+375 (29) 123-45-67</td></tr>
+        <td>Email</td><td>info@cosmetology.by</td></tr>
+    </table>
+{% endblock %}

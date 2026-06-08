@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ doctor.user.get_full_name }}{% endblock %}
+
+{% block content %}
+    <h2>{{ doctor.user.get_full_name }}</h2>
+    
+    <div class="card">
+        <p><strong>Специализация:</strong> 
+            {% for spec in doctor.specializations.all %}
+                {{ spec.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+        <p><strong>Опыт:</strong> {{ doctor.experience_years }} лет</p>
+        <p><strong>Образование:</strong> {{ doctor.education }}</p>
+        
+        <h4>Услуги:</h4>
+        <ul>
+            {% for service in services %}
+                <li>{{ service.name }} - {{ service.price }} руб.</li>
+            {% empty %}
+                <li>Услуги не назначены</li>
+            {% endfor %}
+        </ul>
+        
+        {% if user.is_authenticated and user.role == 'client' %}
+            <a href="{% url 'clients:create_appointment' %}?doctor={{ doctor.id }}" class="btn">Записаться</a>
+        {% endif %}
+    </div>
+    
+    <h3>Расписание на ближайшие дни</h3>
+    {% for slot in available_slots %}
+        <div class="card">
+            <p>{{ slot.date|date:"d.m.Y" }} {{ slot.start_time|time:"H:i" }} - {{ slot.end_time|time:"H:i" }}</p>
+        </div>
+    {% empty %}
+        <p>Нет свободных слотов.</p>
+    {% endfor %}
+{% endblock %}

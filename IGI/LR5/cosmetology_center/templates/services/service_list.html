@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Услуги{% endblock %}
+
+{% block content %}
+    <h2>Наши услуги</h2>
+    
+    <form method="get" class="search-form">
+        <input type="text" name="q" placeholder="Поиск услуг..." value="{{ query }}">
+        <select name="category">
+            <option value="">Все категории</option>
+            {% for cat in categories %}
+                <option value="{{ cat.id }}" {% if selected_category|stringformat:"s" == cat.id|stringformat:"s" %}selected{% endif %}>
+                    {{ cat.name }}
+                </option>
+            {% endfor %}
+        </select>
+        <select name="sort">
+            <option value="">Без сортировки</option>
+            <option value="price_asc" {% if sort_by == 'price_asc' %}selected{% endif %}>Цена (сначала дешевые)</option>
+            <option value="price_desc" {% if sort_by == 'price_desc' %}selected{% endif %}>Цена (сначала дорогие)</option>
+        </select>
+        <button type="submit" class="btn">Фильтр</button>
+    </form>
+    
+    <div class="grid">
+        {% for service in services %}
+            <div class="card">
+                <h3>{{ service.name }}</h3>
+                <p>{{ service.description|truncatewords:20 }}</p>
+                <p><strong>{{ service.price }} руб.</strong> ({{ service.duration }} мин)</p>
+                <a href="{% url 'services:service_detail' service.id %}">Подробнее</a>
+            </div>
+        {% empty %}
+            <p>Услуги не найдены.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

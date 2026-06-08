@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои записи{% endblock %}
+
+{% block content %}
+    <h2>Мои записи</h2>
+    
+    <a href="{% url 'clients:create_appointment' %}" class="btn">Новая запись</a>
+    
+    <h3>Предстоящие записи</h3>
+    {% for appointment in upcoming_appointments %}
+        <div class="card">
+            <p><strong>{{ appointment.date|date:"d.m.Y" }} {{ appointment.time|time:"H:i" }}</strong></p>
+            <p>Услуга: {{ appointment.service.name }}</p>
+            <p>Врач: {{ appointment.doctor.user.get_full_name }}</p>
+            <p>Цена: {{ appointment.service.price }} руб.</p>
+            {% if appointment.payment.is_paid %}
+                <p>✅ Оплачено</p>
+            {% else %}
+                <p>❌ Не оплачено</p>
+            {% endif %}
+            <a href="{% url 'clients:cancel_appointment' appointment.id %}" class="btn btn-danger" onclick="return confirm('Отменить запись?')">Отменить</a>
+        </div>
+    {% empty %}
+        <p>Нет предстоящих записей.</p>
+    {% endfor %}
+    
+    <h3>Прошедшие записи</h3>
+    {% for appointment in past_appointments %}
+        <div class="card">
+            <p>{{ appointment.date|date:"d.m.Y" }} {{ appointment.time|time:"H:i" }} - {{ appointment.service.name }}</p>
+            <p>Статус: {{ appointment.get_status_display }}</p>
+        </div>
+    {% empty %}
+        <p>Нет прошедших записей.</p>
+    {% endfor %}
+{% endblock %}
