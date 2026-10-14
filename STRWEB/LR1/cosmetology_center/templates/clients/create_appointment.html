@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Новая запись — Косметологический центр{% endblock %}
+
+{% block content %}
+
+    <h1>Запись на прием</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Записаться</button>
+        <a href="{% url 'clients:appointment_list' %}">Отмена</a>
+    </form>
+
+{% endblock %}

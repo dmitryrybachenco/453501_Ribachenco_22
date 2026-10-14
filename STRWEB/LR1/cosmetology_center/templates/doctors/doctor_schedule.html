@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Расписание {{ doctor.user.get_full_name }} — Косметологический центр{% endblock %}
+
+{% block content %}
+
+    <h1>Расписание {{ doctor.user.get_full_name }}</h1>
+
+    <p>
+        <a href="?week_start={{ prev_week|date:'Y-m-d' }}">← Предыдущая неделя</a> |
+        <a href="?week_start={{ next_week|date:'Y-m-d' }}">Следующая неделя →</a>
+    </p>
+
+    <hr>
+
+    {% for day in week_days %}
+        <section>
+            <h2>{{ day.date|date:"l, d.m.Y" }}</h2>
+            {% if day.schedules %}
+                <ul>
+                    {% for schedule in day.schedules %}
+                        <li>
+                            {{ schedule.start_time|time:"H:i" }} — {{ schedule.end_time|time:"H:i" }}
+                            {% if schedule.is_available %}(свободно){% else %}(занято){% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Нет расписания на этот день</p>
+            {% endif %}
+        </section>
+        {% if not forloop.last %}<hr>{% endif %}
+    {% endfor %}
+
+{% endblock %}

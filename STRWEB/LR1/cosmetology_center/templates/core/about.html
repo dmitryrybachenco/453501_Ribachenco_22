@@ -1,0 +1,302 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}О компании — Косметологический центр{% endblock %}
+
+{% block content %}
+
+<p contenteditable="true">Этот текст можно редактировать</p>
+
+<p hidden>Этот текст скрыт</p>
+
+<abbr title="Косметологический центр">КЦ</abbr>
+
+    <article>
+        <header>
+            <h1>О компании</h1>
+        </header>
+
+        <section aria-label="Основная информация">
+            <h2>Косметологический центр "Красота"</h2>
+            <p>
+                <strong>Косметологический центр "Красота"</strong> — это современный медицинский центр,
+                предлагающий полный спектр услуг по уходу за кожей лица и тела.
+                <em>Красота требует внимания</em> и профессионального подхода.
+            </p>
+            <p>
+                Мы используем только <small>натуральные</small> косметические средства.
+                <mark>Акция!</mark> Скидка 20% на первую процедуру.
+            </p>
+            <p>
+                <del>Старая цена: 5000 руб.</del> <ins>Новая цена: 3500 руб.</ins>
+            </p>
+        </section>
+
+        <hr>
+
+        <section aria-label="Пример кода">
+            <h3>Пример нашего кода</h3>
+            <pre><code>
+def get_age(self):
+    if not self.birth_date:
+        return 0
+    today = date.today()
+    return today.year - self.birth_date.year
+            </code></pre>
+        </section>
+
+        <hr>
+
+        <section aria-label="Сокращения и определения">
+            <h3>Термины</h3>
+            <p>
+                Наш центр работает по стандартам <abbr title="International Organization for Standardization">ISO</abbr>.
+                Процедуры проводятся с использованием <abbr title="Ультразвук">УЗ</abbr> технологий.
+            </p>
+            <dl>
+                <dt>Косметология</dt>
+                <dd>Область медицины, занимающаяся уходом за кожей лица и тела.</dd>
+                <dt>Пилинг</dt>
+                <dd>Процедура удаления ороговевших клеток кожи.</dd>
+                <dt>Мезотерапия</dt>
+                <dd>Метод введения активных веществ в кожу.</dd>
+            </dl>
+        </section>
+
+        <hr>
+
+        <section aria-label="Цитаты">
+            <h3>Цитаты</h3>
+            <blockquote cite="https://example.com">
+                <p>Красота спасет мир, но только если она здоровая.</p>
+                <footer>— <cite>Доктор Иванова, главный косметолог</cite></footer>
+            </blockquote>
+            <p>
+                Как говорится: <q>Красота требует жертв</q>, но мы минимизируем дискомфорт.
+            </p>
+        </section>
+
+        <hr>
+
+        <section aria-label="Дата-время">
+            <h3>Важные даты</h3>
+            <p>Основание центра: <time datetime="2015-01-15">15 января 2015 года</time></p>
+            <p>Следующее обновление прайса: <time datetime="2024-06-01T10:00">1 июня 2024, 10:00</time></p>
+        </section>
+
+        <hr>
+
+        <section aria-label="Стихотворение">
+            <h3>Стихи о красоте</h3>
+            <pre>
+                Свет, который дарит красота,
+                Не померкнет никогда.
+                Улыбка, взгляд и сердца стук —
+                Вот что лечит нас от мук.
+            </pre>
+            <p>
+                Красота — это не только внешность,<br>
+                Это здоровье, уход и внутренний свет.<br>
+                Мы помогаем вам быть красивыми.<br>
+                Записывайтесь к нам на процедуры!
+            </p>
+        </section>
+
+        <hr>
+
+        <section aria-label="Ссылки">
+            <h3>Полезные ссылки</h3>
+            <ul>
+                <li><a href="https://example.com" target="_blank" rel="noopener noreferrer">Сайт партнера</a></li>
+                <li><a href="mailto:info@cosmetology.by">info@cosmetology.by</a></li>
+                <li><a href="tel:+375291234567">+375 (29) 123-45-67</a></li>
+                <li><a href="{% static 'docs/pricelist.pdf' %}" download>Скачать прайс-лист (PDF)</a></li>
+                <li><a href="#history">Перейти к истории</a></li>
+                <li><a href="#top">Наверх ↑</a></li>
+            </ul>
+        </section>
+
+        <hr>
+
+        <section aria-label="История компании">
+            <h3 id="history">История компании</h3>
+            <ul>
+                <li><a href="#year-2015">2015 - Основание</a></li>
+                <li><a href="#year-2017">2017 - Открытие филиала</a></li>
+                <li><a href="#year-2019">2019 - Новые технологии</a></li>
+                <li><a href="#year-2024">2024 - Онлайн-запись</a></li>
+            </ul>
+
+            <h4 id="year-2015">2015 год</h4>
+            <p>Основание косметологического центра "Красота".</p>
+
+            <h4 id="year-2017">2017 год</h4>
+            <p>Открытие второго филиала в центре города.</p>
+
+            <h4 id="year-2019">2019 год</h4>
+            <p>Внедрение лазерных технологий.</p>
+
+            <h4 id="year-2024">2024 год</h4>
+            <p>Запуск онлайн-записи и личного кабинета.</p>
+        </section>
+
+        <hr>
+
+        <section itemscope itemtype="https://schema.org/Organization" aria-label="Реквизиты">
+            <h2>Реквизиты</h2>
+            <table border="1" cellpadding="6" cellspacing="0">
+                <tr><th>ИНН</th><td>7731340252</td></tr>
+                <tr><th>ОГРН</th><td>1177700000000</td></tr>
+                <tr><th>Юр. адрес</th><td>г.Минск ул.Гикало д.9</td></tr>
+                <tr><th>Телефон</th><td itemprop="telephone">+375 (29) 123-45-67</td></tr>
+                <tr><th>Email</th><td itemprop="email">info@cosmetology.by</td></tr>
+            </table>
+        </section>
+
+        <section aria-label="Сертификат">
+            <h2>Сертификат</h2>
+            <p>СЕРТИФИКАТ О ЧЛЕНСТВЕ В РТА (РЕЕСТР ТУРИСТИЧЕСКИХ АГЕНТСТВ) АССОЦИАЦИИ ТУРИЗМА</p>
+            <pre>
+        ЕДИНЫЙ РЕЕСТР ТУРАГЕНТОВ
+        СВИДЕТЕЛЬСТВО
+        о внесении сведений
+
+        г. Москва                           17 марта 2017
+
+        Общество с ограниченной ответственностью «Тревел Технологии»
+        (ИНН 7731340252)
+        Реестровый номер: 8241
+            </pre>
+        </section>
+
+        <hr>
+
+        <section aria-label="Таблицы">
+            <h3>Сравнение процедур</h3>
+            <table border="1" cellpadding="6" cellspacing="0">
+                <caption>Сравнительная таблица процедур</caption>
+                <thead>
+                    <tr>
+                        <th id="col-service">Услуга</th>
+                        <th id="col-duration">Длительность</th>
+                        <th id="col-price">Цена</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td headers="col-service">Чистка лица</td>
+                        <td headers="col-duration">60 мин</td>
+                        <td headers="col-price">2500 руб.</td>
+                    </tr>
+                    <tr>
+                        <td headers="col-service">Массаж лица</td>
+                        <td headers="col-duration">45 мин</td>
+                        <td headers="col-price">3000 руб.</td>
+                    </tr>
+                    <tr>
+                        <td headers="col-service">Пилинг</td>
+                        <td headers="col-duration">30 мин</td>
+                        <td headers="col-price">3500 руб.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        <hr>
+
+        <section aria-label="Формы">
+            <h3>Обратная связь</h3>
+            <form method="post" action="#">
+                <fieldset>
+                    <legend>Ваши данные</legend>
+
+                    <p>
+                        <label for="name">Имя:</label><br>
+                        <input type="text" id="name" name="name" placeholder="Ваше имя" required>
+                    </p>
+
+                    <p>
+                        <label for="email">Email:</label><br>
+                        <input type="email" id="email" name="email" placeholder="example@mail.com" required>
+                    </p>
+
+                    <p>
+                        <label for="phone">Телефон:</label><br>
+                        <input type="tel" id="phone" name="phone" placeholder="+375 (29) 123-45-67" pattern="\+375\s\(29\)\s\d{3}-\d{2}-\d{2}">
+                    </p>
+
+                    <p>
+                        <label for="date">Удобная дата:</label><br>
+                        <input type="date" id="date" name="date">
+                    </p>
+
+                    <p>
+                        <label for="time">Удобное время:</label><br>
+                        <input type="time" id="time" name="time">
+                    </p>
+
+                    <p>
+                        <label for="message">Сообщение:</label><br>
+                        <textarea id="message" name="message" rows="5" placeholder="Ваше сообщение..." maxlength="300" required></textarea>
+                    </p>
+
+                    <fieldset>
+                        <legend>Тип обращения:</legend>
+                        <label><input type="radio" name="type" value="question" checked> Вопрос</label><br>
+                        <label><input type="radio" name="type" value="suggestion"> Предложение</label><br>
+                        <label><input type="radio" name="type" value="complaint"> Жалоба</label>
+                    </fieldset>
+
+                    <p>
+                        <label><input type="checkbox" name="agree" required> Я согласен с условиями обработки данных</label>
+                    </p>
+
+                    <p>
+                        <label for="contact_method">Способ связи:</label><br>
+                        <select id="contact_method" name="contact_method" required>
+                            <option value="">Выберите способ...</option>
+                            <option value="email">Email</option>
+                            <option value="phone">Телефон</option>
+                            <option value="telegram">Telegram</option>
+                        </select>
+                    </p>
+
+                    <p>
+                        <button type="submit">Отправить</button>
+                        <button type="reset">Очистить</button>
+                    </p>
+                </fieldset>
+            </form>
+        </section>
+
+        <hr>
+
+        <section aria-label="Изображения">
+            <h3>Фотогалерея</h3>
+            <picture>
+                <source media="(max-width: 1200px)" srcset="{% static 'images/banner.jpg' %}">
+                <source media="(max-width: 800px)" srcset="{% static 'images/banner2.jpg' %}">
+                <img src="{% static 'images/banner3.jpg' %}" alt="Баннер центра">
+            </picture>
+        </section>
+
+        <hr>
+
+        <section aria-label="Медиа-контент">
+            <h3>Видео</h3>
+            <video controls width="600">
+                <source src="/media/video/video.mp4" type="video/mp4">
+                <source src="/media/video/intro.webm" type="video/webm">
+                <track src="/media/video/subtitles.vtt" kind="subtitles" srclang="ru" label="Русский">
+                Ваш браузер не поддерживает видео.
+            </video>
+
+            <h3>Аудио</h3>
+            <audio controls>
+                <source src="/media/audio/sound.mp3" type="audio/mpeg">
+                <source src="/media/audio/sound.ogg" type="audio/ogg">
+                Ваш браузер не поддерживает аудио.
+            </audio>
+        </section>
+    </article>
+
+{% endblock %}

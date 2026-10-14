@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ service.name }} — Косметологический центр{% endblock %}
+
+{% block content %}
+
+    <article>
+        <h1>{{ service.name }}</h1>
+
+        <p><strong>Категория:</strong> {{ service.category.name }}</p>
+        <p><strong>Цена:</strong> {{ service.price }} руб.</p>
+        <p><strong>Длительность:</strong> {{ service.duration }} минут</p>
+        <p><strong>Описание:</strong></p>
+        <p>{{ service.description|linebreaks }}</p>
+
+        {% if user.is_authenticated and user.role == 'client' %}
+            <p>
+                <a href="{% url 'core:add_to_cart' service.id %}">Добавить в корзину</a> |
+                <a href="{% url 'clients:create_appointment' %}?service={{ service.id }}">Записаться</a>
+            </p>
+        {% endif %}
+    </article>
+
+    <hr>
+
+    <section aria-label="Врачи, оказывающие услугу">
+        <h2>Врачи, оказывающие эту услугу</h2>
+        <ul>
+            {% for doctor in doctors %}
+                <li>
+                    <p><strong>{{ doctor.user.get_full_name }}</strong> — опыт {{ doctor.experience_years }} лет</p>
+                    <p><a href="{% url 'doctors:doctor_detail' doctor.id %}">Подробнее о враче</a></p>
+                </li>
+            {% empty %}
+                <li>Врачи не назначены.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+{% endblock %}

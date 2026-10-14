@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Врачи — Косметологический центр{% endblock %}
+
+{% block content %}
+
+    <h1>Наши врачи</h1>
+
+    <form method="get">
+        <p>
+            <label for="q">Поиск:</label><br>
+            <input type="text" id="q" name="q" placeholder="Поиск по имени..." value="{{ query }}">
+        </p>
+        <p>
+            <label for="specialization">Специализация:</label><br>
+            <select id="specialization" name="specialization">
+                <option value="">Все специализации</option>
+                {% for spec in specializations %}
+                    <option value="{{ spec.id }}" {% if selected_specialization|stringformat:"s" == spec.id|stringformat:"s" %}selected{% endif %}>
+                        {{ spec.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </p>
+        <p><button type="submit">Фильтр</button></p>
+    </form>
+
+    <hr>
+
+    <ul>
+        {% for doctor in doctors %}
+            <li>
+                <article>
+                    {% if doctor.photo %}
+                        <figure>
+                            <img src="{{ doctor.photo.url }}" alt="{{ doctor.user.get_full_name }}" style="max-width: 150px;">
+                            <figcaption>{{ doctor.user.get_full_name }}</figcaption>
+                        </figure>
+                    {% endif %}
+
+                    <h2>{{ doctor.user.get_full_name }}</h2>
+                    <p>Опыт: {{ doctor.experience_years }} лет</p>
+                    <p>Специализации:
+                        {% for spec in doctor.specializations.all %}
+                            {{ spec.name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+                    <p><a href="{% url 'doctors:doctor_detail' doctor.id %}">Подробнее →</a></p>
+                </article>
+            </li>
+        {% empty %}
+            <li>Врачи не найдены.</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

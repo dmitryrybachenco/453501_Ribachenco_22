@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Личный кабинет — Косметологический центр{% endblock %}
+
+{% block content %}
+
+    <h1>Личный кабинет</h1>
+
+    <section aria-label="Информация о пользователе">
+        <h2>Информация о пользователе</h2>
+        <p><strong>Имя:</strong> {{ user.first_name }}</p>
+        <p><strong>Фамилия:</strong> {{ user.last_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Телефон:</strong> {{ user.phone }}</p>
+        <p><strong>Дата рождения:</strong> {{ user.birth_date|date:"d.m.Y" }}</p>
+        <p><strong>Возраст:</strong> {{ user.get_age }} лет</p>
+        <p><strong>Роль:</strong> {{ user.get_role_display }}</p>
+        <p><a href="{% url 'users:edit_profile' %}">Редактировать профиль</a></p>
+    </section>
+
+    {% if client_profile %}
+        <hr>
+        <section aria-label="Профиль клиента">
+            <h2>Профиль клиента</h2>
+            <p><strong>Тип кожи:</strong> {{ client_profile.skin_type|default:"не указан" }}</p>
+            <p><strong>Аллергии:</strong> {{ client_profile.allergies|default:"нет" }}</p>
+        </section>
+    {% endif %}
+
+    <hr>
+
+    <section aria-label="Последние записи">
+        <h2>Последние записи</h2>
+        <ul>
+            {% for appointment in recent_appointments %}
+                <li>
+                    <time datetime="{{ appointment.date|date:'c' }}">{{ appointment.date|date:"d.m.Y" }}</time>
+                    {{ appointment.time }} —
+                    {{ appointment.service.name }} —
+                    {{ appointment.doctor.user.get_full_name }}
+                    {% if appointment.status == 'scheduled' %} (активна){% endif %}
+                </li>
+            {% empty %}
+                <li>Нет записей.</li>
+            {% endfor %}
+        </ul>
+        <p>
+            <a href="{% url 'clients:appointment_list' %}">Все записи</a> |
+            <a href="{% url 'clients:create_appointment' %}">Новая запись</a>
+        </p>
+    </section>
+
+{% endblock %}

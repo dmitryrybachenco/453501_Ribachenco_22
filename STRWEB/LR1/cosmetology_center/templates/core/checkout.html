@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}Оплата — Косметологический центр{% endblock %}
+
+{% block content %}
+
+    <h1>Оформление заказа</h1>
+
+    <section aria-label="Ваш заказ">
+        <h2>Ваш заказ</h2>
+        <table border="1" cellpadding="6" cellspacing="0">
+            <caption>Состав заказа</caption>
+            <thead>
+                <tr>
+                    <th>Услуга</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Сумма</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>{{ item.service.name }}</td>
+                        <td>{{ item.service.price }} руб.</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.get_total }} руб.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"><strong>Итого к оплате:</strong></td>
+                    <td><strong>{{ total }} руб.</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </section>
+
+    <hr>
+
+    <section aria-label="Форма оплаты">
+        <h2>Способ оплаты</h2>
+        <form method="post">
+            {% csrf_token %}
+
+            <fieldset>
+                <legend>Способ оплаты</legend>
+                <label><input type="radio" name="payment_method" value="card" checked> Банковская карта</label><br>
+                <label><input type="radio" name="payment_method" value="cash"> Наличными при получении</label><br>
+                <label><input type="radio" name="payment_method" value="online"> Онлайн-платеж</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Данные для оплаты картой</legend>
+
+                <p>
+                    <label for="cardNumber">Номер карты:</label><br>
+                    <input type="text" id="cardNumber" name="card_number"
+                           placeholder="1234 5678 9012 3456"
+                           pattern="\d{4} \d{4} \d{4} \d{4}"
+                           title="Формат: 1234 5678 9012 3456"
+                           required>
+                </p>
+
+                <p>
+                    <label for="expiry">Срок действия:</label><br>
+                    <input type="text" id="expiry" name="expiry"
+                           placeholder="MM/YY"
+                           pattern="(0[1-9]|1[0-2])/\d{2}"
+                           title="Формат: MM/YY"
+                           required>
+                </p>
+
+                <p>
+                    <label for="cvv">CVV:</label><br>
+                    <input type="password" id="cvv" name="cvv"
+                           placeholder="***"
+                           pattern="\d{3}"
+                           maxlength="3"
+                           title="Три цифры"
+                           required>
+                </p>
+
+                <p>
+                    <label for="cardholder">Держатель карты:</label><br>
+                    <input type="text" id="cardholder" name="cardholder"
+                           placeholder="IVAN IVANOV"
+                           pattern="[A-Za-z\s]+"
+                           title="Только латинские буквы">
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>Контактная информация</legend>
+
+                <p>
+                    <label for="email">Email для чека:</label><br>
+                    <input type="email" id="email" name="email" placeholder="example@mail.com" required>
+                </p>
+
+                <p>
+                    <label for="phone">Телефон:</label><br>
+                    <input type="tel" id="phone" name="phone"
+                           placeholder="+375 (29) 123-45-67"
+                           pattern="\+375\s\(29\)\s\d{3}-\d{2}-\d{2}">
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>Тип клиента</legend>
+                <label><input type="radio" name="client_type" value="new" checked> Новый клиент</label><br>
+                <label><input type="radio" name="client_type" value="regular"> Постоянный клиент</label><br>
+                <label><input type="radio" name="client_type" value="vip"> VIP клиент</label>
+            </fieldset>
+
+            <p>
+                <label><input type="checkbox" name="agree" required> Я согласен с <a href="{% url 'core:privacy' %}">условиями обработки данных</a></label>
+            </p>
+
+            <p>
+                <button type="submit">Оплатить {{ total }} руб.</button>
+                <a href="{% url 'core:cart' %}">Вернуться в корзину</a>
+            </p>
+        </form>
+    </section>
+
+{% endblock %}

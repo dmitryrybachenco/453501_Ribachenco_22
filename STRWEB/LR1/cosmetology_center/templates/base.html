@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="{% block meta_description %}Косметологический центр 'Красота' — профессиональные услуги косметологии в Минске.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}косметология, чистка лица, массаж, аппаратная косметология, Минск, косметолог{% endblock %}">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Косметологический центр 'Красота'">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'site.webmanifest' %}">
+
+    <title>{% block title %}Косметологический центр 'Красота'{% endblock %}</title>
+
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+
+<header itemscope itemtype="https://schema.org/Organization">
+    <p><strong itemprop="name">Косметологический центр</strong></p>
+
+    <nav aria-label="Главное меню">
+        <a href="{% url 'core:home' %}">Главная</a> |
+        <a href="{% url 'core:about' %}">О компании</a> |
+        <a href="{% url 'core:news_list' %}">Новости</a> |
+        <a href="{% url 'services:service_list' %}">Услуги</a> |
+        <a href="{% url 'doctors:doctor_list' %}">Врачи</a> |
+        <a href="{% url 'core:glossary' %}">Словарь</a> |
+        <a href="{% url 'core:contacts' %}">Контакты</a> |
+        <a href="{% url 'core:vacancies' %}">Вакансии</a> |
+        <a href="{% url 'core:reviews' %}">Отзывы</a> |
+        <a href="{% url 'core:promocodes' %}">Промокоды</a>
+
+        {% if user.is_authenticated %}
+            {% if user.is_superuser or user.is_staff %}
+                | <a href="{% url 'analytics:statistics' %}">Аналитика</a>
+            {% endif %}
+
+            {% if user.role == 'client' %}
+                | <a href="{% url 'clients:appointment_list' %}">Мои записи</a>
+            {% endif %}
+
+            | <a href="{% url 'users:profile' %}">{{ user.get_full_name|default:user.username }}</a> |
+            <a href="{% url 'core:cart' %}">Корзина{% if cart_count %} ({{ cart_count }}){% endif %}</a> |
+
+            <form method="post" action="{% url 'users:logout' %}" style="display:inline;">
+                {% csrf_token %}
+                <input type="submit" value="Выйти ({{ user.username }})">
+            </form>
+        {% else %}
+            | <a href="{% url 'users:login' %}">Вход</a> |
+            <a href="{% url 'users:register' %}">Регистрация</a>
+        {% endif %}
+    </nav>
+</header>
+
+<hr>
+
+<div style="display: flex; gap: 20px;">
+
+    <aside>
+        <nav aria-label="Боковое меню">
+            <section>
+                <h3>Разделы</h3>
+                <ul>
+                    <li><a href="{% url 'core:home' %}">Главная</a></li>
+                    <li><a href="{% url 'core:about' %}">О компании</a></li>
+                    <li><a href="{% url 'core:news_list' %}">Новости</a></li>
+                    <li><a href="{% url 'services:service_list' %}">Услуги</a></li>
+                    <li><a href="{% url 'doctors:doctor_list' %}">Врачи</a></li>
+                    <li><a href="{% url 'core:glossary' %}">Словарь терминов</a></li>
+                    <li><a href="{% url 'core:contacts' %}">Контакты</a></li>
+                    <li><a href="{% url 'core:vacancies' %}">Вакансии</a></li>
+                    <li><a href="{% url 'core:reviews' %}">Отзывы</a></li>
+                    <li><a href="{% url 'core:promocodes' %}">Промокоды</a></li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Помощь</h3>
+                <ul>
+                    <li><a href="{% url 'core:privacy' %}">Политика конфиденциальности</a></li>
+                    <li><a href="{% url 'core:contacts' %}">Обратная связь</a></li>
+                </ul>
+            </section>
+        </nav>
+    </aside>
+
+    <main style="flex: 1; padding: 10px;">
+
+        <aside aria-label="Информация о времени и дате">
+            <time datetime="{{ server_time }}">
+                <strong>Время сервера:</strong> {{ server_time }}<br>
+                <strong>Часовой пояс:</strong> {{ server_timezone }}
+            </time>
+
+            <section>
+                <h3>{{ calendar_month_name }} {{ calendar_year }}</h3>
+                <table border="1" cellpadding="4" cellspacing="0">
+                    <thead>
+                        <tr>
+                            {% for wd in calendar_weekdays %}
+                                <th>{{ wd }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for week in calendar_matrix %}
+                            <tr>
+                                {% for day in week %}
+                                    {% if day == 0 %}
+                                        <td></td>
+                                    {% else %}
+                                        <td align="center"{% if day == today.day and calendar_month == today.month and calendar_year == today.year %} bgcolor="#0066cc"{% endif %}>
+                                            {% if day == today.day and calendar_month == today.month and calendar_year == today.year %}
+                                                <font color="white"><b>{{ day }}</b></font>
+                                            {% else %}
+                                                {{ day }}
+                                            {% endif %}
+                                        </td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </aside>
+
+        {% if messages %}
+            <section aria-label="Сообщения">
+                {% for message in messages %}
+                    <article>{{ message }}</article>
+                {% endfor %}
+            </section>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+
+    </main>
+
+</div>
+
+<hr>
+
+<footer>
+    <p>
+        &copy; {{ current_year }} Косметологический центр "Красота". Все права защищены.<br>
+        Вариант №22. Работает на Django.
+    </p>
+
+    <hr size="1" noshade>
+
+</footer>
+
+{% block extra_scripts %}{% endblock %}
+
+</body>
+</html>

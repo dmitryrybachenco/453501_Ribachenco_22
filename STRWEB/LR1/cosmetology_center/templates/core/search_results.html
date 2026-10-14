@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Результаты поиска — Косметологический центр{% endblock %}
+
+{% block content %}
+
+    <h1>Результаты поиска: "{{ query }}"</h1>
+
+    <form method="get">
+        <input type="hidden" name="q" value="{{ query }}">
+
+        <label for="type">Тип:</label>
+        <select id="type" name="type">
+            <option value="all" {% if search_type == 'all' %}selected{% endif %}>Все</option>
+            <option value="services" {% if search_type == 'services' %}selected{% endif %}>Услуги</option>
+            <option value="doctors" {% if search_type == 'doctors' %}selected{% endif %}>Врачи</option>
+            <option value="news" {% if search_type == 'news' %}selected{% endif %}>Новости</option>
+        </select>
+
+        <label for="sort">Сортировка:</label>
+        <select id="sort" name="sort">
+            <option value="">Без сортировки</option>
+            <option value="price_asc" {% if sort_by == 'price_asc' %}selected{% endif %}>Цена (возрастание)</option>
+            <option value="price_desc" {% if sort_by == 'price_desc' %}selected{% endif %}>Цена (убывание)</option>
+        </select>
+
+        <button type="submit">Применить</button>
+    </form>
+
+    <hr>
+
+    {% if results.services %}
+        <section aria-label="Услуги">
+            <h2>Услуги</h2>
+            <ul>
+                {% for item in results.services %}
+                    <li><a href="{% url 'services:service_detail' item.id %}">{{ item.name }}</a> — {{ item.price }} руб.</li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+
+    {% if results.doctors %}
+        <section aria-label="Врачи">
+            <h2>Врачи</h2>
+            <ul>
+                {% for item in results.doctors %}
+                    <li>
+                        <a href="{% url 'doctors:doctor_detail' item.id %}">{{ item.user.get_full_name }}</a>
+                        — опыт {{ item.experience_years }} лет
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+
+    {% if results.news %}
+        <section aria-label="Новости">
+            <h2>Новости</h2>
+            <ul>
+                {% for item in results.news %}
+                    <li>
+                        <a href="{% url 'core:news_detail' item.id %}">{{ item.title }}</a>
+                        — <time datetime="{{ item.published_at|date:'c' }}">{{ item.published_at|date:"d.m.Y" }}</time>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+
+    {% if not results.services and not results.doctors and not results.news %}
+        <p>Ничего не найдено.</p>
+    {% endif %}
+
+{% endblock %}

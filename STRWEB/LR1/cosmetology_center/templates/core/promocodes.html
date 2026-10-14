@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Промокоды и купоны — Косметологический центр{% endblock %}
+
+{% block content %}
+
+    <h1>Промокоды и купоны</h1>
+
+    <section aria-label="Действующие промокоды">
+        <h2>Действующие промокоды</h2>
+        <ul>
+            {% for promo in active_promocodes %}
+                <li>
+                    <article>
+                        <h3>Код: {{ promo.code }}</h3>
+                        <p>Скидка: {{ promo.discount_percent }}%</p>
+                        <p>Действует до: <time datetime="{{ promo.valid_to|date:'c' }}">{{ promo.valid_to|date:"d.m.Y" }}</time></p>
+                    </article>
+                </li>
+            {% empty %}
+                <li>Нет действующих промокодов.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <hr>
+
+    <section aria-label="Архив промокодов">
+        <h2>Архив промокодов</h2>
+        <ul>
+            {% for promo in archived_promocodes %}
+                <li>
+                    <article>
+                        <h3>Код: {{ promo.code }}</h3>
+                        <p>Скидка: {{ promo.discount_percent }}%</p>
+                        <p>Действовал до: <time datetime="{{ promo.valid_to|date:'c' }}">{{ promo.valid_to|date:"d.m.Y" }}</time></p>
+                    </article>
+                </li>
+            {% empty %}
+                <li>Архив пуст.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+{% endblock %}

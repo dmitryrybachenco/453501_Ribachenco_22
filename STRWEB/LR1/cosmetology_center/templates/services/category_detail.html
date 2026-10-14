@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.name }} — Косметологический центр{% endblock %}
+
+{% block content %}
+
+    <h1>{{ category.name }}</h1>
+    <p>{{ category.description }}</p>
+
+    <ul>
+        {% for service in services %}
+            <li>
+                <article>
+                    <h2><a href="{% url 'services:service_detail' service.id %}">{{ service.name }}</a></h2>
+                    <p>{{ service.price }} руб.</p>
+                </article>
+            </li>
+        {% empty %}
+            <li>Услуги не найдены.</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

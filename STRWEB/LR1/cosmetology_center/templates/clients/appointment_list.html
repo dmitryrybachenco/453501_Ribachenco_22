@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои записи — Косметологический центр{% endblock %}
+
+{% block content %}
+
+    <h1>Мои записи</h1>
+
+    <p><a href="{% url 'clients:create_appointment' %}">Новая запись</a></p>
+
+    <hr>
+
+    <section aria-label="Предстоящие записи">
+        <h2>Предстоящие записи</h2>
+        <ul>
+            {% for appointment in upcoming_appointments %}
+                <li>
+                    <article>
+                        <p><strong><time datetime="{{ appointment.date|date:'c' }}">{{ appointment.date|date:"d.m.Y" }}</time> {{ appointment.time|time:"H:i" }}</strong></p>
+                        <p>Услуга: {{ appointment.service.name }}</p>
+                        <p>Врач: {{ appointment.doctor.user.get_full_name }}</p>
+                        <p>Цена: {{ appointment.service.price }} руб.</p>
+                        <p>
+                            {% if appointment.payment.is_paid %}Оплачено{% else %}Не оплачено{% endif %}
+                        </p>
+                        <p>
+                            <a href="{% url 'clients:cancel_appointment' appointment.id %}" onclick="return confirm('Отменить запись?')">Отменить</a>
+                        </p>
+                    </article>
+                </li>
+            {% empty %}
+                <li>Нет предстоящих записей.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <hr>
+
+    <section aria-label="Прошедшие записи">
+        <h2>Прошедшие записи</h2>
+        <ul>
+            {% for appointment in past_appointments %}
+                <li>
+                    <time datetime="{{ appointment.date|date:'c' }}">{{ appointment.date|date:"d.m.Y" }}</time>
+                    {{ appointment.time|time:"H:i" }} — {{ appointment.service.name }}
+                    — Статус: {{ appointment.get_status_display }}
+                </li>
+            {% empty %}
+                <li>Нет прошедших записей.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+{% endblock %}

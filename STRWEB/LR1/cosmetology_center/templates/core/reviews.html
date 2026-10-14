@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Отзывы — Косметологический центр{% endblock %}
+
+{% block content %}
+
+    <h1>Отзывы наших клиентов</h1>
+
+    {% if user.is_authenticated %}
+        <section aria-label="Форма отзыва">
+            <h2>Оставить отзыв</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Отправить</button>
+            </form>
+        </section>
+        <hr>
+    {% else %}
+        <p><a href="{% url 'users:login' %}">Войдите</a>, чтобы оставить отзыв.</p>
+        <hr>
+    {% endif %}
+
+    <h2>Все отзывы</h2>
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <article>
+                    <p><strong>{{ review.user.get_full_name }}</strong> — Оценка: {{ review.rating }}/5</p>
+                    <p>{{ review.text }}</p>
+                    <p><small><time datetime="{{ review.created_at|date:'c' }}">{{ review.created_at|date:"d.m.Y" }}</time></small></p>
+                </article>
+            </li>
+        {% empty %}
+            <li>Отзывов пока нет. Будьте первым!</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

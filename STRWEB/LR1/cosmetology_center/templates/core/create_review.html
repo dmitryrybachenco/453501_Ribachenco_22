@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Добавить отзыв — Косметологический центр{% endblock %}
+
+{% block content %}
+
+    <h1>Добавить отзыв</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить отзыв</button>
+        <a href="{% url 'core:reviews' %}">Отмена</a>
+    </form>
+
+{% endblock %}

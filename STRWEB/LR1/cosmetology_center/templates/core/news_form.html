@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} — Косметологический центр{% endblock %}
+
+{% block content %}
+
+    <h1>{{ title }}</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div>
+                {% for error in form.non_field_errors %}
+                    <p><strong>{{ error }}</strong></p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <fieldset>
+            <legend>Основная информация</legend>
+
+            <p>
+                <label for="id_title">Заголовок:</label><br>
+                <input type="text"
+                       id="id_title"
+                       name="title"
+                       value="{{ form.title.value|default:'' }}"
+                       maxlength="200"
+                       required>
+                {% if form.title.errors %}
+                    <span>{{ form.title.errors }}</span>
+                {% endif %}
+            </p>
+
+            <p>
+                <label for="id_short_description">Краткое описание (одно предложение):</label><br>
+                <textarea id="id_short_description"
+                          name="short_description"
+                          rows="2"
+                          maxlength="300"
+                          required>{{ form.short_description.value|default:'' }}</textarea>
+                {% if form.short_description.errors %}
+                    <span>{{ form.short_description.errors }}</span>
+                {% endif %}
+            </p>
+
+            <p>
+                <label for="id_content">Полное содержание:</label><br>
+                <textarea id="id_content"
+                          name="content"
+                          rows="10"
+                          required>{{ form.content.value|default:'' }}</textarea>
+                {% if form.content.errors %}
+                    <span>{{ form.content.errors }}</span>
+                {% endif %}
+            </p>
+
+            <p>
+                <label for="id_image">Картинка:</label><br>
+                <input type="file"
+                       id="id_image"
+                       name="image"
+                       accept="image/*">
+                {% if form.image.value %}
+                    <br><small>Текущая картинка: {{ form.image.value }}</small>
+                {% endif %}
+                {% if form.image.errors %}
+                    <span>{{ form.image.errors }}</span>
+                {% endif %}
+            </p>
+
+            <p>
+                <label for="id_is_published">
+                    <input type="checkbox"
+                           id="id_is_published"
+                           name="is_published"
+                           {% if form.is_published.value %}checked{% endif %}>
+                    Опубликовано
+                </label>
+                {% if form.is_published.errors %}
+                    <span>{{ form.is_published.errors }}</span>
+                {% endif %}
+            </p>
+        </fieldset>
+
+        <p>
+            <button type="submit">{{ button_text }}</button>
+            <a href="{% url 'core:news_list' %}">Отмена</a>
+        </p>
+    </form>
+
+{% endblock %}

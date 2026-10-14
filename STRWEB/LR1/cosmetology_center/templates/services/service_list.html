@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Услуги — Косметологический центр{% endblock %}
+
+{% block content %}
+
+    <h1>Наши услуги</h1>
+
+    <form method="get">
+        <p>
+            <label for="q">Поиск:</label><br>
+            <input type="text" id="q" name="q" placeholder="Поиск услуг..." value="{{ query }}">
+        </p>
+        <p>
+            <label for="category">Категория:</label><br>
+            <select id="category" name="category">
+                <option value="">Все категории</option>
+                {% for cat in categories %}
+                    <option value="{{ cat.id }}" {% if selected_category|stringformat:"s" == cat.id|stringformat:"s" %}selected{% endif %}>
+                        {{ cat.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
+            <label for="sort">Сортировка:</label><br>
+            <select id="sort" name="sort">
+                <option value="">Без сортировки</option>
+                <option value="price_asc" {% if sort_by == 'price_asc' %}selected{% endif %}>Цена (сначала дешевые)</option>
+                <option value="price_desc" {% if sort_by == 'price_desc' %}selected{% endif %}>Цена (сначала дорогие)</option>
+            </select>
+        </p>
+        <p><button type="submit">Фильтр</button></p>
+    </form>
+
+    <hr>
+
+    <ul>
+        {% for service in services %}
+            <li>
+                <article>
+                    <h2><a href="{% url 'services:service_detail' service.id %}">{{ service.name }}</a></h2>
+                    <p>{{ service.description|truncatewords:20 }}</p>
+                    <p><strong>{{ service.price }} руб.</strong> ({{ service.duration }} мин)</p>
+                    <p><a href="{% url 'services:service_detail' service.id %}">Подробнее →</a></p>
+                </article>
+            </li>
+        {% empty %}
+            <li>Услуги не найдены.</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

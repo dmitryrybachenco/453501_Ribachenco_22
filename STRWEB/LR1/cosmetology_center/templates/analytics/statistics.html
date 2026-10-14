@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Статистика — Косметологический центр{% endblock %}
+
+{% block content %}
+
+    <h1>Статистика центра</h1>
+
+    <section aria-label="Общая статистика">
+        <h2>Общая статистика</h2>
+        <ul>
+            <li>Всего клиентов: <strong>{{ total_clients }}</strong></li>
+            <li>Всего врачей: <strong>{{ total_doctors }}</strong></li>
+            <li>Активных услуг: <strong>{{ total_services }}</strong></li>
+            <li>Всего приемов: <strong>{{ total_appointments }}</strong></li>
+        </ul>
+    </section>
+
+    <hr>
+
+    <section aria-label="Самая популярная услуга">
+        <h2>Самая популярная услуга</h2>
+        {% if most_popular_service %}
+            <p><strong>{{ most_popular_service.name }}</strong> — {{ most_popular_service.appointment_count }} записей</p>
+        {% else %}
+            <p>Нет данных</p>
+        {% endif %}
+    </section>
+
+    <hr>
+
+    <section aria-label="Средняя оценка">
+        <h2>Средняя оценка отзывов</h2>
+        <p>{{ avg_rating }} / 5</p>
+    </section>
+
+    <hr>
+
+    <section aria-label="Возрастное распределение">
+        <h2>Возрастное распределение клиентов</h2>
+        <ul>
+            {% for key, value in age_groups.items %}
+                <li>{{ key }} лет: <strong>{{ value }}</strong></li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <hr>
+
+    <section aria-label="Топ врачей">
+        <h2>Топ-5 врачей по количеству приемов</h2>
+        <table border="1" cellpadding="6" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Врач</th>
+                    <th>Количество приемов</th>
+                    <th>Выручка</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doctor in doctor_stats %}
+                    <tr>
+                        <td>{{ doctor.user.get_full_name }}</td>
+                        <td>{{ doctor.appointments_count }}</td>
+                        <td>{{ doctor.total_revenue|default:"0" }} руб.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <hr>
+
+    <section aria-label="Доходы по услугам">
+        <h2>Доходы по услугам (топ-5)</h2>
+        <table border="1" cellpadding="6" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Услуга</th>
+                    <th>Выручка</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for service in revenue_by_service %}
+                    <tr>
+                        <td>{{ service.name }}</td>
+                        <td>{{ service.total_revenue|default:"0" }} руб.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+{% endblock %}

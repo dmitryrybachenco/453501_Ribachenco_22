@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ doctor.user.get_full_name }} — Косметологический центр{% endblock %}
+
+{% block content %}
+
+    <article>
+        <h1>{{ doctor.user.get_full_name }}</h1>
+
+        <p><strong>Специализация:</strong>
+            {% for spec in doctor.specializations.all %}
+                {{ spec.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+        <p><strong>Опыт:</strong> {{ doctor.experience_years }} лет</p>
+        <p><strong>Образование:</strong> {{ doctor.education }}</p>
+
+        <h3>Услуги:</h3>
+        <ul>
+            {% for service in services %}
+                <li>{{ service.name }} — {{ service.price }} руб.</li>
+            {% empty %}
+                <li>Услуги не назначены</li>
+            {% endfor %}
+        </ul>
+
+        {% if user.is_authenticated and user.role == 'client' %}
+            <p><a href="{% url 'clients:create_appointment' %}?doctor={{ doctor.id }}">Записаться</a></p>
+        {% endif %}
+    </article>
+
+    <hr>
+
+    <section aria-label="Расписание">
+        <h2>Расписание на ближайшие дни</h2>
+        <ul>
+            {% for slot in available_slots %}
+                <li>
+                    <time datetime="{{ slot.date|date:'c' }}">{{ slot.date|date:"d.m.Y" }}</time>
+                    {{ slot.start_time|time:"H:i" }} — {{ slot.end_time|time:"H:i" }}
+                </li>
+            {% empty %}
+                <li>Нет свободных слотов.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+{% endblock %}
