@@ -6,22 +6,18 @@
 
     <h1>Наши сотрудники</h1>
 
-    <ul>
+    <ul class="contacts-flex">
         {% for contact in contacts %}
             <li>
-                <article>
-                    {% if contact.photo %}
-                        <img src="{{ contact.photo.url }}" alt="{{ contact.full_name }}" style="max-width: 100px;">
-                    {% endif %}
-                    <h2>{{ contact.full_name }}</h2>
-                    <p><strong>{{ contact.position }}</strong></p>
-                    <p>{{ contact.description }}</p>
-                    <p>Телефон: <a href="tel:{{ contact.phone }}">{{ contact.phone }}</a></p>
-                    <p>Email: <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
-                </article>
+                {% if contact.photo %}
+                    <img src="{{ contact.photo.url }}" alt="{{ contact.full_name }}">
+                {% endif %}
+                <h2>{{ contact.full_name }}</h2>
+                <p><strong>{{ contact.position }}</strong></p>
+                <p>{{ contact.description }}</p>
+                <p>📞 <a href="tel:{{ contact.phone }}">{{ contact.phone }}</a></p>
+                <p>✉ <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
             </li>
-        {% empty %}
-            <li>Контакты не добавлены.</li>
         {% endfor %}
     </ul>
 

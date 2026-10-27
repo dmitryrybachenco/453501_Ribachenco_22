@@ -6,17 +6,15 @@
 
     <h1>Словарь терминов и понятий</h1>
 
-    <ul>
+    <ul class="glossary-list">
         {% for item in glossary_items %}
-        <article>
-            <details>
-                <summary>{{ item.term }}</summary>
-                <p>{{ item.definition }}</p>
-                <p><small>Добавлено: {{ item.added_at|date:"d.m.Y" }}</small></p>
-            </details>
-        </article>
-        {% empty %}
-            <li>Термины не добавлены.</li>
+            <li>
+                <details>
+                    <summary>{{ item.term }}</summary>
+                    <p>{{ item.definition }}</p>
+                    <p><small>Добавлено: {{ item.added_at|date:"d.m.Y" }}</small></p>
+                </details>
+            </li>
         {% endfor %}
     </ul>
 

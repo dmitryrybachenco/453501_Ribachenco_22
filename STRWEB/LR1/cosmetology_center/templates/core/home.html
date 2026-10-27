@@ -5,29 +5,48 @@
 
 {% block content %}
 
-    <!-- ========== БАННЕРЫ ========== -->
+    <section class="animation-scene" aria-label="Анимация: кисточка рисует лицо">
+        <div class="clinic-name">Косметологический центр «Красота»</div>
+
+        <div class="face">
+            <div class="eyebrow left"></div>
+            <div class="eyebrow right"></div>
+
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+
+            <div class="nose"></div>
+
+            <div class="lips"></div>
+
+            <div class="cheek left"></div>
+            <div class="cheek right"></div>
+        </div>
+
+        <div class="brush"></div>
+    </section>
+
     {% if banners %}
-        <section aria-label="Рекламные баннеры">
+        <section class="banners" aria-label="Рекламные баннеры">
             {% for banner in banners %}
                 <article>
                     {% if banner.image %}
-                        <img src="{{ banner.image.url }}" alt="{{ banner.title }}" style="max-width: 100%;">
+                        <img src="{{ banner.image.url }}" alt="{{ banner.title }}">
                     {% endif %}
-                    <h2>{{ banner.title }}</h2>
-                    {% if banner.subtitle %}<p>{{ banner.subtitle }}</p>{% endif %}
-                    {% if banner.url %}<p><a href="{{ banner.url }}">Узнать больше →</a></p>{% endif %}
+                    <div style="padding: 15px;">
+                        <h2>{{ banner.title }}</h2>
+                        {% if banner.subtitle %}<p>{{ banner.subtitle }}</p>{% endif %}
+                        {% if banner.url %}<p><a href="{{ banner.url }}">Узнать больше →</a></p>{% endif %}
+                    </div>
                 </article>
-                {% if not forloop.last %}<hr>{% endif %}
             {% endfor %}
         </section>
-        <hr>
     {% endif %}
 
-    <!-- ========== ПОСЛЕДНЯЯ НОВОСТЬ ========== -->
     <section aria-label="Последняя новость">
         <h2>Последняя новость</h2>
         {% if latest_news %}
-            <article>
+            <article class="latest-news">
                 <h3><a href="{% url 'core:news_detail' latest_news.id %}">{{ latest_news.title }}</a></h3>
                 <p>{{ latest_news.short_description }}</p>
                 <p><a href="{% url 'core:news_detail' latest_news.id %}">Читать далее →</a></p>
@@ -39,12 +58,11 @@
 
     <hr>
 
-        <!-- ========== ПОПУЛЯРНЫЕ УСЛУГИ ========== -->
     <section aria-label="Популярные услуги">
         <h2>Популярные услуги</h2>
-        <ul style="display: flex; gap: 20px; list-style: none; padding: 0; flex-wrap: wrap;">
+        <ul class="services-grid">
             {% for service in popular_services %}
-                <li style="flex: 1; min-width: 250px;">
+                <li>
                     <article>
                         <h3><a href="{% url 'services:service_detail' service.id %}">{{ service.name }}</a></h3>
                         <p>{{ service.description|truncatewords:15 }}</p>
@@ -65,12 +83,11 @@
 
     <hr>
 
-    <!-- ========== ЛУЧШИЕ ВРАЧИ ========== -->
     <section aria-label="Лучшие врачи">
         <h2>Лучшие врачи</h2>
-        <ul style="display: flex; gap: 20px; list-style: none; padding: 0; flex-wrap: wrap;">
+        <ul class="services-grid">
             {% for doctor in top_doctors %}
-                <li style="flex: 1; min-width: 250px;">
+                <li>
                     <article>
                         <h3>{{ doctor.user.get_full_name }}</h3>
                         <p>Опыт: {{ doctor.experience_years }} лет</p>
@@ -86,16 +103,15 @@
 
     <hr>
 
-    <!-- ========== ПАРТНЁРЫ ========== -->
-        {% if partners %}
+    {% if partners %}
         <section aria-label="Наши партнёры">
             <h2>Наши партнёры</h2>
-            <ul style="display: flex; gap: 20px; list-style: none; padding: 0; flex-wrap: wrap; justify-content: center;">
+            <ul class="partners">
                 {% for partner in partners %}
                     <li>
                         <a href="{{ partner.website }}" target="_blank" rel="noopener noreferrer">
-                            <figure>
-                                <img src="{{ partner.logo.url }}" alt="{{ partner.name }}" style="max-width: 100px;">
+                            <figure style="margin: 0;">
+                                <img src="{{ partner.logo.url }}" alt="{{ partner.name }}">
                                 <figcaption>{{ partner.name }}</figcaption>
                             </figure>
                         </a>

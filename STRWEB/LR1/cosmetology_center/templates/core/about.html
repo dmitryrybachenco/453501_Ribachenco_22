@@ -120,7 +120,7 @@ def get_age(self):
 
         <section aria-label="История компании">
             <h3 id="history">История компании</h3>
-            <ul>
+            <ul class="history-list">
                 <li><a href="#year-2015">2015 - Основание</a></li>
                 <li><a href="#year-2017">2017 - Открытие филиала</a></li>
                 <li><a href="#year-2019">2019 - Новые технологии</a></li>
@@ -144,7 +144,7 @@ def get_age(self):
 
         <section itemscope itemtype="https://schema.org/Organization" aria-label="Реквизиты">
             <h2>Реквизиты</h2>
-            <table border="1" cellpadding="6" cellspacing="0">
+            <table class="requisites" border="1" cellpadding="6" cellspacing="0">
                 <tr><th>ИНН</th><td>7731340252</td></tr>
                 <tr><th>ОГРН</th><td>1177700000000</td></tr>
                 <tr><th>Юр. адрес</th><td>г.Минск ул.Гикало д.9</td></tr>
@@ -153,20 +153,32 @@ def get_age(self):
             </table>
         </section>
 
+        <section aria-label="Основная информация">
+            <h2>Косметологический центр "Красота"</h2>
+
+            {% if company_info.logo %}
+                <img class="about-logo" src="{{ company_info.logo.url }}" alt="Логотип" style="max-width: 200px;">
+            {% endif %}
+
+            <p class="text-block">
+                <strong>Косметологический центр "Красота"</strong> — это современный медицинский центр...
+            </p>
+        </section>
+
+        <hr>
+
         <section aria-label="Сертификат">
             <h2>Сертификат</h2>
-            <p>СЕРТИФИКАТ О ЧЛЕНСТВЕ В РТА (РЕЕСТР ТУРИСТИЧЕСКИХ АГЕНТСТВ) АССОЦИАЦИИ ТУРИЗМА</p>
-            <pre>
-        ЕДИНЫЙ РЕЕСТР ТУРАГЕНТОВ
-        СВИДЕТЕЛЬСТВО
-        о внесении сведений
-
-        г. Москва                           17 марта 2017
-
-        Общество с ограниченной ответственностью «Тревел Технологии»
-        (ИНН 7731340252)
-        Реестровый номер: 8241
-            </pre>
+            <div class="certificate">
+                <p style="font-size: 0.8rem; letter-spacing: 2px;">СЕРТИФИКАТ О ЧЛЕНСТВЕ В РТА</p>
+                <h2 class="cert-title">ЕДИНЫЙ РЕЕСТР ТУРАГЕНТОВ</h2>
+                <h3>СВИДЕТЕЛЬСТВО</h3>
+                <p>о внесении сведений</p>
+                <p>г. Минск</p>
+                <p><strong>Общество с ограниченной ответственностью «Красота»</strong></p>
+                <p>ИНН 7731340252</p>
+                <p class="cert-number">Реестровый номер: 8241</p>
+            </div>
         </section>
 
         <hr>
